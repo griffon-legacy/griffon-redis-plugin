@@ -29,25 +29,10 @@ import org.slf4j.LoggerFactory
  * @author Andres Almiray
  */
 @Singleton
-final class RedisConnector {
+final class RedisConnector implements RedisProvider {
     private bootstrap
 
     private static final Logger LOG = LoggerFactory.getLogger(RedisConnector)
-
-    static void enhance(MetaClass mc) {
-        mc.withRedis = {Closure closure ->
-            RedisPoolHolder.instance.withRedis('default', closure)
-        }
-        mc.withRedis << {String datasourceName, Closure closure ->
-            RedisPoolHolder.instance.withRedis(datasourceName, closure)
-        }
-        mc.withRedis << {CallableWithArgs callable ->
-            RedisPoolHolder.instance.withRedis('default', callable)
-        }
-        mc.withRedis << {String datasourceName, CallableWithArgs callable ->
-            RedisPoolHolder.instance.withRedis(datasourceName, callable)
-        }
-    }
 
     Object withRedis(String datasourceName = 'default', Closure closure) {
         RedisPoolHolder.instance.withRedis(datasourceName, closure)
