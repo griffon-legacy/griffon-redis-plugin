@@ -2,11 +2,10 @@ griffon.project.dependency.resolution = {
     inherits "global"
     log "warn"
     repositories {
-        griffonHome()
         mavenCentral()
     }
     dependencies {
-        compile 'redis.clients:jedis:2.0.0'
+        compile 'redis.clients:jedis:2.1.0'
     }
 }
 

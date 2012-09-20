@@ -27,7 +27,7 @@ final class RedisEnhancer {
     private static final Logger LOG = LoggerFactory.getLogger(RedisEnhancer)
 
     private RedisEnhancer() {}
-    
+
     static void enhance(MetaClass mc, RedisProvider provider = RedisPoolHolder.instance) {
         if(LOG.debugEnabled) LOG.debug("Enhancing $mc with $provider")
         mc.withRedis = {Closure closure ->

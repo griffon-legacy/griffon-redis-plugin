@@ -37,7 +37,7 @@ class RedisGriffonAddon {
         }
     }
 
-    def events = [
+    Map events = [
         ShutdownStart: { app ->
             ConfigObject config = RedisConnector.instance.createConfig(app)
             RedisConnector.instance.disconnect(app, config)

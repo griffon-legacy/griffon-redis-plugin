@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 the original author or authors.
+ * Copyright 2011-2012 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import griffon.core.GriffonApplication
 import griffon.util.Environment
 import griffon.util.Metadata
 import griffon.util.CallableWithArgs
+import griffon.util.ConfigUtils
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -45,8 +46,7 @@ final class RedisConnector implements RedisProvider {
     // ======================================================
 
     ConfigObject createConfig(GriffonApplication app) {
-        def datasourceClass = app.class.classLoader.loadClass('RedisConfig')
-        new ConfigSlurper(Environment.current.name).parse(datasourceClass)
+        ConfigUtils.loadConfigWithI18n('RedisConfig')
     }
 
     private ConfigObject narrowConfig(ConfigObject config, String datasourceName) {

@@ -34,7 +34,7 @@ class RedisPoolHolder implements RedisProvider {
     private static final Logger LOG = LoggerFactory.getLogger(RedisPoolHolder)
     private static final Object[] LOCK = new Object[0]
     private final Map<String, JedisPool> pools = [:]
-  
+
     String[] getJedisPoolNames() {
         List<String> poolNames = new ArrayList().addAll(pools.keySet())
         poolNames.toArray(new String[poolNames.size()])
@@ -47,7 +47,7 @@ class RedisPoolHolder implements RedisProvider {
 
     void setJedisPool(String datasourceName = 'default', JedisPool pool) {
         if(isBlank(datasourceName)) datasourceName = 'default'
-        storeJedisPool(datasourceName, pool)       
+        storeJedisPool(datasourceName, pool)
     }
 
     Object withRedis(String datasourceName = 'default', Closure closure) {
@@ -81,7 +81,7 @@ class RedisPoolHolder implements RedisProvider {
     void disconnectJedisPool(String datasourceName) {
         if(isBlank(datasourceName)) datasourceName = 'default'
         retrieveJedisPool(datasourceName)?.destroy()
-        storeJedisPool(datasourceName, null)        
+        storeJedisPool(datasourceName, null)
     }
 
     private JedisPool fetchJedisPool(String datasourceName) {
@@ -92,7 +92,7 @@ class RedisPoolHolder implements RedisProvider {
             ConfigObject config = RedisConnector.instance.createConfig(app)
             pool = RedisConnector.instance.connect(app, config, datasourceName)
         }
-        
+
         if(pool == null) {
             throw new IllegalArgumentException("No such JedisPool configuration for name $datasourceName")
         }
